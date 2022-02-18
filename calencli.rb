@@ -1,5 +1,11 @@
 # Data
+require 'date'
 id = 0
+
+#actual monday
+
+actual_monday =Date.parse("2021-11-15")#"Date.today - (Date.today.wday - 1)
+
 events = [
   { "id" => (id = id.next),
     "start_date" => "2021-11-15T00:00:00-05:00",
@@ -101,6 +107,87 @@ events = [
     "calendar" => "web-dev" },
 ]
 
-# Methods
+
+# Methods 
+
+#method main
+
+def main()
+  action = nil
+  print("action: ")  #-> line : "action: show"
+  action = gets.chomp
+  case "action"
+    #action()
+  when "list"
+    #list()
+  when "create"
+    #create()
+  when "show"
+    #show()
+  when "update"
+    #update()
+  when "delete"
+    #delete()
+  when "next"
+    #change_week()
+  when "prev"
+    #change_week()
+  when "exit"
+    false
+  else
+    #add 
+  end
+end
+
+#method display calendar
+
+def display_calendar(actual_monday,events)
+  
+  order_events = events.sort_by { | id | id["start_date"]}
+  for index_day in 0..6
+    spaces = true
+    print("#{(actual_monday + index_day).strftime("%a %b %d")}")
+    order_events.each do |event|
+      if Date.parse(event["start_date"]) == actual_monday + index_day
+        if event["end_date"].empty?
+          spaces ? print("                ") : print("                           ")
+        else
+          spaces ? print("  ") : print("            ")
+          print("#{DateTime.parse(event["start_date"]).strftime("%H:%M")}")
+          print(" - ")
+          print("#{DateTime.parse(event["end_date"]).strftime("%H:%M")}")
+          print(" ")
+        end
+        puts("#{event["title"]} #{event["id"]}")
+        spaces = false
+      end
+      
+    end
+    puts()
+  end
+end
+
+
+#method create
+
+
+
+
+
 
 # Main Program
+puts("-----------------------------Welcome to CalenCLI------------------------------")
+puts("")
+display_calendar(actual_monday,events)
+#add look first week
+
+puts("")
+puts("------------------------------------------------------------------------------")
+puts("list | create | show | update | delete | next | prev | exit")
+puts("")
+while !main()
+  puts("------------------------------------------------------------------------------")
+  puts("list | create | show | update | delete | next | prev | exit")
+  puts("")
+end
+
